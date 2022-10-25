@@ -1,81 +1,66 @@
 import 'package:flutter/material.dart';
+ 
+void main() => runApp(const MyApp());
+ 
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-class Todo {
-  final String title;
-  final String description;
-
-  const Todo(this.title, this.description);
-}
-
-void main() {
-  runApp(
-    MaterialApp(
-      title: 'Passing Data',
-      home: TodosScreen(
-        todos: List.generate(
-          20,
-          (i) => Todo(
-            'Todo $i',
-            'A description of what needs to be done for Todo $i',
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-class TodosScreen extends StatelessWidget {
-  const TodosScreen({super.key, required this.todos});
-
-  final List<Todo> todos;
 
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+        title: "ListView.builder",
+        theme: ThemeData(primarySwatch: Colors.green),
+        debugShowCheckedModeBanner: false,
+        home:  ListViewBuilder());
+  }
+}
+ 
+class ListViewBuilder extends StatelessWidget {
+   ListViewBuilder({Key? key}) : super(key: key);
+
+    List posts = [
+      'one', 'two', 'three'
+      ];
+ 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Todos'),
-      ),
+      appBar: AppBar(title: const Text("ListView.builder")),
       body: ListView.builder(
-        itemCount: todos.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(todos[index].title),
-            // When a user taps the ListTile, navigate to the DetailScreen.
-            // Notice that you're not only creating a DetailScreen, you're
-            // also passing the current todo through to it.
-            onTap: () {
+          itemCount: posts.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+                leading: const Icon(Icons.list),
+                trailing: const Text(
+                  "GFG",
+                ),
+                title: Text("List item $index"),
+                  onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailScreen(todo: todos[index]),
+                  builder: (context) => Details(index: index,)
                 ),
               );
             },
-          );
-        },
-      ),
+                );
+          }),
     );
   }
+
 }
 
-class DetailScreen extends StatelessWidget {
-  // In the constructor, require a Todo.
-  const DetailScreen({super.key, required this.todo});
 
-  // Declare a field that holds the Todo.
-  final Todo todo;
+class Details extends StatelessWidget {
+  final int index;
+
+   Details({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Use the Todo to create the UI.
     return Scaffold(
-      appBar: AppBar(
-        title: Text(todo.title),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(todo.description),
-      ),
+      body: Center(child: Text('Index is #$index'),),
     );
   }
 }
