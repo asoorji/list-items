@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+    List posts = [
+      'one', 'two', 'three'
+      ];
  
 void main() => runApp(const MyApp());
  
@@ -19,9 +23,7 @@ class MyApp extends StatelessWidget {
 class ListViewBuilder extends StatelessWidget {
    ListViewBuilder({Key? key}) : super(key: key);
 
-    List posts = [
-      'one', 'two', 'three'
-      ];
+  
  
   @override
   Widget build(BuildContext context) {
@@ -31,11 +33,7 @@ class ListViewBuilder extends StatelessWidget {
           itemCount: posts.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-                leading: const Icon(Icons.list),
-                trailing: const Text(
-                  "GFG",
-                ),
-                title: Text("List item $index"),
+                 title: Text("List item $index"),
                   onTap: () {
               Navigator.push(
                 context,
@@ -60,7 +58,7 @@ class Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Index is #$index'),),
+      body: Center(child: Text(posts[index]),),
     );
   }
 }
